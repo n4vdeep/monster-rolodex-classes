@@ -42,10 +42,12 @@ class App extends Component {
     const { monsters, searchField } = this.state;
     const { onSearchChange } = this;
 
-    // using filter() iterate over monsters based on
-    // convert input to all to lowercase
-    // return new array with +/- user inputs
-    // store it in variable
+    /*
+      using filter() iterate over monsters based on
+      convert input to all to lowercase
+      return new array with +/- user inputs
+      store it in variable
+    */
     const filteredMonsters = monsters.filter((monster) => {
       return monster.name.toLowerCase().includes(searchField);
     });
