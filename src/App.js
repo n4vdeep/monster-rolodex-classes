@@ -24,18 +24,33 @@ class App extends Component {
       () => {
         console.log(this.state);
       }
-      ));
+    ));
+  }
+
+  // Storing onChange functionality
+  // so as to not have to keep initialising it
+  onSearchChange = (event) => {
+    // store user input into variable
+    const searchField = event.target.value;
+
+    this.setState(
+      () => {
+        return { searchField };
+    });
   }
 
   render() {
     console.log('render');
 
+    const { monsters, searchField } = this.state;
+    const { onSearchChange } = this;
+
     // using filter() iterate over monsters based on
     // convert input to all to lowercase
     // return new array with +/- user inputs
     // store it in variable
-    const filteredMonsters = this.state.monsters.filter((monster) => {
-      return monster.name.toLowerCase().includes(this.state.searchField);
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchField);
     });
 
     return (
@@ -44,15 +59,7 @@ class App extends Component {
           className='search-box' 
           type='search' 
           placeholder='search monsters...' 
-          onChange={(event) => {
-            // store user input into variable
-            const searchField = event.target.value;
-
-            this.setState(
-              () => {
-                return { searchField };
-            });
-          }}
+          onChange={onSearchChange}
         />
         {/* map over new array*/ filteredMonsters.map((monster) => {
           return (
