@@ -7,6 +7,8 @@ class App extends Component {
 
     this.state = {
       monsters: [],
+      // searchField to start as empty string
+      searchField: ''
     };
     console.log('constructor');
   }
@@ -28,6 +30,14 @@ class App extends Component {
   render() {
     console.log('render');
 
+    // using filter() iterate over monsters based on
+    // convert input to all to lowercase
+    // return new array with +/- user inputs
+    // store it in variable
+    const filteredMonsters = this.state.monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(this.state.searchField);
+    });
+
     return (
       <div className='App'>
         <input 
@@ -35,21 +45,16 @@ class App extends Component {
           type='search' 
           placeholder='search monsters...' 
           onChange={(event) => {
-            console.log({startingArray: this.state.monsters});
-            const filteredMonsters = this.state.monsters.filter((monster) => {
-              return monster.name.toLowerCase().includes(event.target.value)
-            });
+            // store user input into variable
+            const searchField = event.target.value;
 
             this.setState(
               () => {
-                return { monsters: filteredMonsters }
-            }, 
-              () => {
-              console.log({endingArray: this.state.monsters})
+                return { searchField };
             });
           }}
         />
-        {this.state.monsters.map((monster) => {
+        {/* map over new array*/ filteredMonsters.map((monster) => {
           return (
             <div key={monster.id}>
               <h1>{monster.name}</h1>
